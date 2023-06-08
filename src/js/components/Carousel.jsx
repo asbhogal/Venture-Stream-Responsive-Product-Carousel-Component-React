@@ -1,10 +1,81 @@
+import { useRef, useEffect } from "react";
 import products from "../constants/productsData";
 
 const Carousel = () => {
-  console.log(products);
+  const carouselRef = useRef(null);
+  const dragStartRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const previousTranslateRef = useRef(0);
+  const currentTranslateRef = useRef(0);
+
+  useEffect(() => {
+    const carouselContainer = carouselRef.current;
+    const handleMouseDown = (e) => {
+      e.preventDefault();
+      dragStartRef.current = e.clientX;
+      isDraggingRef.current = true;
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDraggingRef.current) return;
+      const currentPosition = e.clientX;
+      const diffX = currentPosition - dragStartRef.current;
+      currentTranslateRef.current = previousTranslateRef.current + diffX;
+      carouselContainer.style.transform = `translateX(${currentTranslateRef.current}px)`;
+    };
+
+    const handleMouseUp = () => {
+      isDraggingRef.current = false;
+      previousTranslateRef.current = currentTranslateRef.current;
+    };
+
+    const handleTouchStart = (e) => {
+      dragStartRef.current = e.touches[0].clientX;
+      isDraggingRef.current = true;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDraggingRef.current) return;
+
+      const currentPosition = e.touches[0].clientX;
+      const diffX = currentPosition - dragStartRef.current;
+      currentTranslateRef.current = previousTranslateRef.current + diffX;
+      carouselContainer.style.transform = `translateX(${currentTranslateRef.current}px)`;
+    };
+
+    const handleTouchEnd = () => {
+      isDraggingRef.current = false;
+      previousTranslateRef.current = currentTranslateRef.current;
+    };
+
+    carouselContainer.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mouseleave", handleMouseUp);
+
+    carouselContainer.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("touchcancel", handleTouchEnd);
+
+    return () => {
+      carouselContainer.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mouseleave", handleMouseUp);
+
+      carouselContainer.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
+    };
+  }, []);
   return (
     <>
-      <div className="carousel group flex gap-[20px] carousel pl-[37px] md:pl-[142px] py-[21px] overflow-x-scroll overflow-y-hidden">
+      <div
+        className="carousel group flex gap-[20px] pl-[37px] md:pl-[142px] py-[21px] overflow-x-scroll overflow-y-hidden"
+        ref={carouselRef}
+      >
         {products.map((product) => (
           <a
             key={product.id}

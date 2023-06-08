@@ -27,3 +27,7 @@
 .container-title {
   font-size: clamp(1.75rem, 1.6562rem + 0.382vw, 2rem);
 }
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
