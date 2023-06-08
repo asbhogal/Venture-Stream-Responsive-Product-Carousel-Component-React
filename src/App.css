@@ -1,0 +1,29 @@
+/**** PLUS JAKARTA SANS - 500 MEDIUM ****/
+
+@font-face {
+  font-family: Plus Jakarta Sans;
+  font-weight: 500;
+  font-style: normal;
+  src: url(/fonts/PlusJakartaSans-Medium.woff) format(woff),
+    url(/fonts/PlusJakartaSans-Medium.woff2) format(woff2);
+  font-display: swap;
+}
+
+/**** PLUS JAKARTA SANS - 700 BOLD ****/
+
+@font-face {
+  font-family: Plus Jakarta Sans;
+  font-weight: 700;
+  font-style: normal;
+  src: url(/fonts/PlusJakartaSans-Bold.woff) format(woff),
+    url(/fonts/PlusJakartaSans-Bold.woff2) format(woff2);
+  font-display: swap;
+}
+
+* {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.container-title {
+  font-size: clamp(1.75rem, 1.6562rem + 0.382vw, 2rem);
+}
