@@ -58,10 +58,6 @@ const Carousel = () => {
     carouselContainer.addEventListener("touchend", handleTouchEnd);
     carouselContainer.addEventListener("touchcancel", handleTouchEnd);
 
-    document.addEventListener("touchmove", handleTouchMove, {
-      passive: false,
-    });
-
     return () => {
       carouselContainer.removeEventListener("mousedown", handleMouseDown);
       carouselContainer.removeEventListener("mousemove", handleMouseMove);
@@ -72,10 +68,6 @@ const Carousel = () => {
       carouselContainer.removeEventListener("touchmove", handleTouchMove);
       carouselContainer.removeEventListener("touchend", handleTouchEnd);
       carouselContainer.removeEventListener("touchcancel", handleTouchEnd);
-
-      document.removeEventListener("touchmove", handleTouchMove, {
-        passive: false,
-      });
     };
   }, []);
   return (
@@ -83,6 +75,9 @@ const Carousel = () => {
       <div
         className="carousel group flex gap-[20px] pl-[37px] md:pl-[142px] py-[21px] overflow-x-scroll overflow-y-hidden"
         ref={carouselRef}
+        onTouchStart={(e) => e.preventDefault()}
+        onTouchMove={(e) => e.preventDefault()}
+        onTouchEnd={(e) => e.preventDefault()}
       >
         {products.map((product) => (
           <a
