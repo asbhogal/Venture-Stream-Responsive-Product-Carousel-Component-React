@@ -36,7 +36,6 @@ const Carousel = () => {
 
     const handleTouchMove = (e) => {
       if (!isDraggingRef.current) return;
-
       const currentPosition = e.touches[0].clientX;
       const diffX = currentPosition - dragStartRef.current;
       currentTranslateRef.current = previousTranslateRef.current + diffX;
@@ -48,26 +47,26 @@ const Carousel = () => {
       previousTranslateRef.current = currentTranslateRef.current;
     };
 
-    carouselContainer.addEventListener("mousedown", handleMouseDown);
-    carouselContainer.addEventListener("mousemove", handleMouseMove);
-    carouselContainer.addEventListener("mouseup", handleMouseUp);
-    carouselContainer.addEventListener("mouseleave", handleMouseUp);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseleave", handleMouseUp);
 
-    carouselContainer.addEventListener("touchstart", handleTouchStart);
-    carouselContainer.addEventListener("touchmove", handleTouchMove);
-    carouselContainer.addEventListener("touchend", handleTouchEnd);
-    carouselContainer.addEventListener("touchcancel", handleTouchEnd);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("touchcancel", handleTouchEnd);
 
     return () => {
-      carouselContainer.removeEventListener("mousedown", handleMouseDown);
-      carouselContainer.removeEventListener("mousemove", handleMouseMove);
-      carouselContainer.removeEventListener("mouseup", handleMouseUp);
-      carouselContainer.removeEventListener("mouseleave", handleMouseUp);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseleave", handleMouseUp);
 
-      carouselContainer.removeEventListener("touchstart", handleTouchStart);
-      carouselContainer.removeEventListener("touchmove", handleTouchMove);
-      carouselContainer.removeEventListener("touchend", handleTouchEnd);
-      carouselContainer.removeEventListener("touchcancel", handleTouchEnd);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
     };
   }, []);
   return (
