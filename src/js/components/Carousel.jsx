@@ -58,6 +58,10 @@ const Carousel = () => {
     carouselContainer.addEventListener("touchend", handleTouchEnd);
     carouselContainer.addEventListener("touchcancel", handleTouchEnd);
 
+    document.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
+
     return () => {
       carouselContainer.removeEventListener("mousedown", handleMouseDown);
       carouselContainer.removeEventListener("mousemove", handleMouseMove);
@@ -68,6 +72,10 @@ const Carousel = () => {
       carouselContainer.removeEventListener("touchmove", handleTouchMove);
       carouselContainer.removeEventListener("touchend", handleTouchEnd);
       carouselContainer.removeEventListener("touchcancel", handleTouchEnd);
+
+      document.removeEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
     };
   }, []);
   return (
