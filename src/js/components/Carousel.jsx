@@ -49,25 +49,25 @@ const Carousel = () => {
     };
 
     carouselContainer.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("mouseleave", handleMouseUp);
+    carouselContainer.addEventListener("mousemove", handleMouseMove);
+    carouselContainer.addEventListener("mouseup", handleMouseUp);
+    carouselContainer.addEventListener("mouseleave", handleMouseUp);
 
     carouselContainer.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
-    window.addEventListener("touchcancel", handleTouchEnd);
+    carouselContainer.addEventListener("touchmove", handleTouchMove);
+    carouselContainer.addEventListener("touchend", handleTouchEnd);
+    carouselContainer.addEventListener("touchcancel", handleTouchEnd);
 
     return () => {
       carouselContainer.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("mouseleave", handleMouseUp);
+      carouselContainer.removeEventListener("mousemove", handleMouseMove);
+      carouselContainer.removeEventListener("mouseup", handleMouseUp);
+      carouselContainer.removeEventListener("mouseleave", handleMouseUp);
 
       carouselContainer.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-      window.removeEventListener("touchcancel", handleTouchEnd);
+      carouselContainer.removeEventListener("touchmove", handleTouchMove);
+      carouselContainer.removeEventListener("touchend", handleTouchEnd);
+      carouselContainer.removeEventListener("touchcancel", handleTouchEnd);
     };
   }, []);
   return (
