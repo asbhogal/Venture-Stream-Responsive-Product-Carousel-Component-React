@@ -39,6 +39,14 @@ const Carousel = () => {
       const currentPosition = e.touches[0].clientX;
       const diffX = currentPosition - dragStartRef.current;
       currentTranslateRef.current = previousTranslateRef.current + diffX;
+      const minTranslate = 0;
+      const maxTranslate =
+        carouselContainer.offsetWidth -
+        carouselContainer.parentNode.offsetWidth;
+      currentTranslateRef.current = Math.max(
+        minTranslate,
+        Math.min(maxTranslate, currentTranslateRef.current)
+      );
       carouselContainer.style.transform = `translateX(${currentTranslateRef.current}px)`;
     };
 
@@ -47,26 +55,26 @@ const Carousel = () => {
       previousTranslateRef.current = currentTranslateRef.current;
     };
 
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("mouseleave", handleMouseUp);
+    carouselContainer.addEventListener("mousedown", handleMouseDown);
+    carouselContainer.addEventListener("mousemove", handleMouseMove);
+    carouselContainer.addEventListener("mouseup", handleMouseUp);
+    carouselContainer.addEventListener("mouseleave", handleMouseUp);
 
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
-    window.addEventListener("touchcancel", handleTouchEnd);
+    carouselContainer.addEventListener("touchstart", handleTouchStart);
+    carouselContainer.addEventListener("touchmove", handleTouchMove);
+    carouselContainer.addEventListener("touchend", handleTouchEnd);
+    carouselContainer.addEventListener("touchcancel", handleTouchEnd);
 
     return () => {
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("mouseleave", handleMouseUp);
+      carouselContainer.removeEventListener("mousedown", handleMouseDown);
+      carouselContainer.removeEventListener("mousemove", handleMouseMove);
+      carouselContainer.removeEventListener("mouseup", handleMouseUp);
+      carouselContainer.removeEventListener("mouseleave", handleMouseUp);
 
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-      window.removeEventListener("touchcancel", handleTouchEnd);
+      carouselContainer.removeEventListener("touchstart", handleTouchStart);
+      carouselContainer.removeEventListener("touchmove", handleTouchMove);
+      carouselContainer.removeEventListener("touchend", handleTouchEnd);
+      carouselContainer.removeEventListener("touchcancel", handleTouchEnd);
     };
   }, []);
   return (
