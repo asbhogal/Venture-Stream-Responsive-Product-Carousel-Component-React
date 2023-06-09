@@ -1,90 +1,45 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import products from "../constants/productsData";
 
 const Carousel = () => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startScrollLeft, setStartScrollLeft] = useState(0);
+  const [startPos, setStartPos] = useState(0);
+  const [currentPos, setCurrentPos] = useState(0);
+
   const carouselRef = useRef(null);
-  const dragStartRef = useRef(0);
-  const isDraggingRef = useRef(false);
-  const previousTranslateRef = useRef(0);
-  const currentTranslateRef = useRef(0);
 
-  useEffect(() => {
-    const carouselContainer = carouselRef.current;
-    const handleMouseDown = (e) => {
-      e.preventDefault();
-      dragStartRef.current = e.clientX;
-      isDraggingRef.current = true;
-    };
+  const dragStart = (e) => {
+    setIsDragging(true);
+    carouselRef.current.classList.add("dragging");
+    setStartPos(e.pageX - carouselRef.current.offsetLeft);
+    setStartX(e.pageX);
+    setStartScrollLeft(carouselRef.current.scrollLeft);
+  };
 
-    const handleMouseMove = (e) => {
-      if (!isDraggingRef.current) return;
-      const currentPosition = e.clientX;
-      const diffX = currentPosition - dragStartRef.current;
-      currentTranslateRef.current = previousTranslateRef.current + diffX;
-      carouselContainer.style.transform = `translateX(${currentTranslateRef.current}px)`;
-    };
+  const dragging = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    setCurrentPos(e.pageX - carouselRef.current.offsetLeft);
+    const scrollPos = currentPos - startPos;
+    carouselRef.current.scrollLeft = carouselRef.current.scrollLeft - scrollPos;
+    carouselRef.current.scrollLeft = startScrollLeft - (e.pageX - startX);
+  };
 
-    const handleMouseUp = () => {
-      isDraggingRef.current = false;
-      previousTranslateRef.current = currentTranslateRef.current;
-    };
-
-    const handleTouchStart = (e) => {
-      dragStartRef.current = e.touches[0].clientX;
-      isDraggingRef.current = true;
-    };
-
-    const handleTouchMove = (e) => {
-      if (!isDraggingRef.current) return;
-      const currentPosition = e.touches[0].clientX;
-      const diffX = currentPosition - dragStartRef.current;
-      currentTranslateRef.current = previousTranslateRef.current + diffX;
-      const minTranslate = 0;
-      const maxTranslate =
-        carouselContainer.offsetWidth -
-        carouselContainer.parentNode.offsetWidth;
-      currentTranslateRef.current = Math.max(
-        minTranslate,
-        Math.min(maxTranslate, currentTranslateRef.current)
-      );
-      carouselContainer.style.transform = `translateX(${currentTranslateRef.current}px)`;
-    };
-
-    const handleTouchEnd = () => {
-      isDraggingRef.current = false;
-      previousTranslateRef.current = currentTranslateRef.current;
-    };
-
-    carouselContainer.addEventListener("mousedown", handleMouseDown);
-    carouselContainer.addEventListener("mousemove", handleMouseMove);
-    carouselContainer.addEventListener("mouseup", handleMouseUp);
-    carouselContainer.addEventListener("mouseleave", handleMouseUp);
-
-    carouselContainer.addEventListener("touchstart", handleTouchStart);
-    carouselContainer.addEventListener("touchmove", handleTouchMove);
-    carouselContainer.addEventListener("touchend", handleTouchEnd);
-    carouselContainer.addEventListener("touchcancel", handleTouchEnd);
-
-    return () => {
-      carouselContainer.removeEventListener("mousedown", handleMouseDown);
-      carouselContainer.removeEventListener("mousemove", handleMouseMove);
-      carouselContainer.removeEventListener("mouseup", handleMouseUp);
-      carouselContainer.removeEventListener("mouseleave", handleMouseUp);
-
-      carouselContainer.removeEventListener("touchstart", handleTouchStart);
-      carouselContainer.removeEventListener("touchmove", handleTouchMove);
-      carouselContainer.removeEventListener("touchend", handleTouchEnd);
-      carouselContainer.removeEventListener("touchcancel", handleTouchEnd);
-    };
-  }, []);
+  const dragStop = () => {
+    setIsDragging(false);
+    carouselRef.current.classList.remove("dragging");
+  };
   return (
     <>
       <div
-        className="carousel group flex gap-[20px] pl-[37px] md:pl-[142px] py-[21px] overflow-x-scroll overflow-y-hidden"
+        className="carousel group flex gap-[20px] pl-[37px] md:pl-[142px] py-[21px] overflow-x-auto overflow-y-hidden"
         ref={carouselRef}
-        onTouchStart={(e) => e.preventDefault()}
-        onTouchMove={(e) => e.preventDefault()}
-        onTouchEnd={(e) => e.preventDefault()}
+        onMouseDown={dragStart}
+        onMouseMove={dragging}
+        onMouseUp={dragStop}
+        onMouseLeave={dragStop}
       >
         {products.map((product) => (
           <a
