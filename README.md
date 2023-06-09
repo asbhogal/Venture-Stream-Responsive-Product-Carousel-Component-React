@@ -2,6 +2,8 @@
 
 <h1>Venture Stream - Responsive Product Carousel Component - React</h1>
 
+![GitHub deployments](https://img.shields.io/github/deployments/asbhogal/Venture-Stream-Responsive-Product-Carousel-Component-React/production?label=DEPLOYMENT%20STATE&style=for-the-badge&labelColor=000) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/asbhogal/Venture-Stream-Responsive-Product-Carousel-Component-React?style=for-the-badge&labelColor=000) ![GitHub repo size](https://img.shields.io/github/repo-size/asbhogal/Venture-Stream-Responsive-Product-Carousel-Component-React?color=blueviolet&style=for-the-badge&labelColor=000)
+
 </div>
 
 A responsive product carousel component created from mockups and assets provided as part of the interview process for Junior Developer at Venture Stream
