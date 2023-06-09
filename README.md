@@ -29,6 +29,7 @@ This has been created using React, Tailwind CSS and Vite.
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/postcss/brand/blob/master/dist/postcss-logo-symbol.svg"><img src="https://github.com/postcss/brand/blob/master/dist/postcss-logo-symbol.svg" alt="postcss logo" width="50" height="50" style="max-width:100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg"><img src="https://github.com/devicons/devicon/raw/master/icons/javascript/javascript-original.svg" alt="JavaScript" width="50" height="50" style="max-width:100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/vitejs/vite/blob/main/docs/public/logo.svg"><img src="https://github.com/vitejs/vite/blob/main/docs/public/logo.svg" alt="Vite logo" width="50" height="50" style="max-width:100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/devicons/devicon/blob/master/icons/eslint/eslint-original.svg"><img src="https://github.com/devicons/devicon/blob/master/icons/eslint/eslint-original.svg" alt="Vite logo" width="50" height="50" style="max-width:100%;"></a>
 
 <strong>:link: Links</strong><br>
 
