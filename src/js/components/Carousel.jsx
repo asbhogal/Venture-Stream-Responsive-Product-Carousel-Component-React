@@ -7,6 +7,7 @@ const Carousel = () => {
   const [startScrollLeft, setStartScrollLeft] = useState(0);
   const [startPos, setStartPos] = useState(0);
   const [currentPos, setCurrentPos] = useState(0);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const carouselRef = useRef(null);
 
@@ -31,6 +32,15 @@ const Carousel = () => {
     setIsDragging(false);
     carouselRef.current.classList.remove("dragging");
   };
+
+  const handleCardHover = (cardId) => {
+    setHoveredCard(cardId);
+  };
+
+  const handleCardLeave = () => {
+    setHoveredCard(null);
+  };
+
   return (
     <>
       <div
@@ -44,9 +54,11 @@ const Carousel = () => {
         {products.map((product) => (
           <a
             key={product.id}
-            className="carousel-card flex flex-col gap-[20px] hover:scale-105 transition"
+            className="carousel-card flex group flex-col gap-[20px] hover:scale-105 transition"
             href="#"
             target="_blank"
+            onMouseEnter={() => handleCardHover(product.id)}
+            onMouseLeave={handleCardLeave}
           >
             <img
               className="product-image max-w-none w-[287px] sm:w-[396px]"
@@ -56,7 +68,11 @@ const Carousel = () => {
             <div className="product-title font-medium text-lg">
               {product.name}
             </div>
-            <div className="product-arrow-container flex justify-center items-center h-10 w-10 bg-white rounded-full absolute right-[30px] bottom-[74.25px] group-hover:flex>">
+            <div
+              className={`product-arrow-container justify-center items-center h-10 w-10 bg-white rounded-full absolute right-[30px] bottom-[74.25px] ${
+                hoveredCard === product.id ? "flex" : "hidden"
+              }`}
+            >
               <img
                 className="product-arrow flex h-[8.73px] w-[9.23px]"
                 src="./icons/Arrow.svg"
